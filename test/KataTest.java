@@ -11,6 +11,6 @@ import kata.Kata;
 public class KataTest {
 	@Test
 	public void greetingTest() {
-		assertThat(Kata.greeting("sir"), is("Hello sir!"));
+		assertThat(Kata.greeting("friend"), is("Hello friend!"));
 	}
 }
