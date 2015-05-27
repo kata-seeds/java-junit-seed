@@ -1,17 +1,17 @@
-classpath = classes:lib/junit-4.12.jar:lib/hamcrest-core-1.3.jar
+MVN	?= ./dep/apache-maven-3.3.3/bin/mvn
 
-all: dependencies build test
-
-build:
-    javac -d classes -cp $(classpath) src/test/java/TestHelloWorld.java src/main/java/HelloWorld.java
-
-test:
-    java -cp $(classpath) org.junit.runner.JUnitCore TestHelloWorld
-
-dependencies:
-    which java javac
+all: dependencies test
 
 clean:
-    $(RM) classes/**/*.class
+	@$(MVN) -q clean
+	@rm -rf ./target
+	$(RM) classes/**/*.class
 
-.PHONY: all build dependencies test clean
+test:
+	@$(MVN) -q clean test
+
+dependencies:
+	@if [ -z ${JAVA_HOME} ]; then echo "JAVA_HOME is unset..."; else echo "JAVA_HOME is set to ${JAVA_HOME}"; fi
+	@$(MVN) -q clean
+
+.PHONY: all dependencies test
